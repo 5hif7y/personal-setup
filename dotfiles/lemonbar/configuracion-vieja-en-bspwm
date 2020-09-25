@@ -1,0 +1,15 @@
+Debido al desorden, se pasa a configurar un unico script que incluya la barra y la bandeja de sistema
+Tambien hay otro problema, la barra se superpone sobre la bandeja de sistema, esto es porque es un script que esta permanentemente refrescandose 
+
+
+# Barras
+dash ~/.config/lemonbar/minimalbar | lemonbar -b -p -f "Hack:style=Regular:lang=ja:pixelsize=12" -F "#FF007F" &
+# lemonbar -b -p -f "Hack Nerd Font:style=Regular:lang=ja" -F "#FF007F"
+# lemonbar -b -f :slant=0:weight=100:pixelsize=10:antialias=False:minspace=True:lang=ja -p -F     '#FF007F' &
+#~/.config/polybar/bar.sh &
+# polybar example &
+
+# Bandeja de sistema (system tray)
+trayer --edge bottom --align right --width 4 --height 20 --SetDockType true --SetPartialStrut true --expand true --transparent true --tint 'B#22000000' --alpha 128 --distancefrom right --distance 290  &
+# trayer --edge top --align right --width 4 --SetDockType true --SetPartialStrut true --expand true --transparent true --tint B#22000000 --alpha 255 &
+#trayer  --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --alpha 0 --tint 0x292d3e --height 19 &

@@ -1,0 +1,4 @@
+#!/usr/bin/env dash
+
+
+scrot -s ~/Imágenes/capturas/recorte-%Y年%m月%d日_%T.png &

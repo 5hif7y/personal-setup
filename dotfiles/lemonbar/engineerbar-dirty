@@ -1,0 +1,60 @@
+#!/usr/bin/dash
+
+Barra(){
+
+#	Time=$(date "+%A %d,  %B %Y. · %T")
+#	echo "${TIME}" 
+
+#ActiveWindow(){
+#	longitud=$(echo -n "$(xdotool getwindowfocus getwindowname)" | wc -m)
+#	longitud_max=70
+#	if [ "$longitud" -gt "$longitud_max" ];then
+#		echo -n "$(xdotool getwindowfocus getwindowname | cut -c 1-$max_len)..."
+#	else
+#		echo -n "$(xdotool getwindowfocus getwindowname)"
+#	fi
+#}
+
+#####################################################################
+	ActiveDesktop=$(bspc query -D -d --names)
+###################################################################
+	CPU=$(top -b -n1 | awk 'NR==3{print $2 + $4}')
+#	CPU=$(ps axch -o %cpu | awk '{sum+=$0} END {print sum}')
+#	RAM=$(top -b -n1 | awk 'NR==4{print $6 / $4 * 100}')
+	RAM=$(ps axch -o %mem | awk '{sum+=$0} END {print sum}')
+#	CPURAM=$("CPU=$CPU% · RAM=$RAM%")
+	GPU=$(awk '/^GPU Load/ {print $3 $4}' /sys/kernel/debug/dri/0/amdgpu_pm_info)
+	VRAM=$(awk '/^MEM Load/ {print $3 $4}' /sys/kernel/debug/dri/0/amdgpu_pm_info)
+####################################################################	
+	actual=$(bspc query -D -d --names)
+	coloreado=$(awk 'BEGIN{"bspc query -D -d --names"|getline usando;print "%{B#BE005577}%{+u}"usando"%{B#22000000}%{-u}"}')
+	reemplazar=$(bspc query -D -d .occupied --names | sed "s/$actual/$coloreado/")	
+	OccupiedDesktops=$(echo "$reemplazar"| paste -d' ' -s)
+####################################################################
+	ActiveWindow=$(xdotool getwindowfocus getwindowname)
+###################################################################
+	Language=$(locale | awk -F= 'NR==1{print $2}')
+#################################################################
+	Time=$(date "+%A %d,  %B %Y. · %T")
+######################################################################################################
+######################################################################################################
+	echo -n "%{l}$OccupiedDesktops · CPU=$CPU% · RAM=$RAM% · GPU=$GPU · VRAM=$VRAM  %{c} $ActiveDesktop · $ActiveWindow   %{r}$Language · $Time"
+	sleep 0.1s
+}
+
+while true; do
+	echo "$(Barra)"
+done
+
+
+#while true; do
+#	echo -e "%{l}$(OccupiedDesktops) ·" "%{c}$(ActiveDesktop) · $(ActiveWindow)" "%{r}$(Language) · $(Clock)"
+#	sleep 0.1s
+#done
+
+
+# lemonbar -b -f :slant=0:weight=100:pixelsize=10:antialias=False:minspace=True:lang=ja -p -F     '#FF007F'
+
+	
+# trayer --edge bottom --align right --width 4 --height 20 --SetDockType true --SetPartialStrut true --expand true --transparent true --tint 'B#22000000' --alpha 128 --distancefrom right --distance 290 &
+	

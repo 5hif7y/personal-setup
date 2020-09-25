@@ -1,0 +1,46 @@
+#!/usr/bin/dash
+
+Clock(){
+	TIME=$(date "+%A %d,  %B %Y. · %T")
+	echo "${TIME}" 
+}
+
+ActiveWindow(){
+	len=$(echo -n "$(xdotool getwindowfocus getwindowname)" | wc -m)
+	max_len=70
+	if [ "$len" -gt "$max_len" ];then
+		echo -n "$(xdotool getwindowfocus getwindowname | cut -c 1-$max_len)..."
+	else
+		echo -n "$(xdotool getwindowfocus getwindowname)"
+	fi
+}
+
+ActiveDesktop(){
+		ACTIVEDESKTOP=$(bspc query -D -d --names)
+		echo -n "$ACTIVEDESKTOP"
+}
+
+OccupiedDesktops(){
+	actual=$(bspc query -D -d --names)
+	coloreado=$(awk 'BEGIN{"bspc query -D -d --names"|getline usando;print "%{B#BE005577}%{+u}"usando"%{B#22000000}%{-u}"}')
+	reemplazar=$(bspc query -D -d .occupied --names | sed "s/$actual/$coloreado/")
+	
+	OD=$(echo "$reemplazar"| paste -d' ' -s)
+	
+	echo -n "$OD"
+}
+
+Language(){
+	CURRENTLANG=$(locale | awk -F= 'NR==1{print $2}')
+	echo -n "$CURRENTLANG"
+}
+
+while true; do
+	echo -e "%{l}$(OccupiedDesktops) ·" "%{c}$(ActiveDesktop) · $(ActiveWindow)" "%{r}$(Language) · $(Clock)" | lemonbar -b -f :slant=0:weight=100:pixelsize=10:antialias=False:minspace=True:lang=ja -p -F     '#FF007F'
+
+	sleep 0.1s
+done
+
+	
+trayer --edge bottom --align right --width 4 --height 20 --SetDockType true --SetPartialStrut true --expand true --transparent true --tint 'B#22000000' --alpha 128 --distancefrom right --distance 290 &
+	

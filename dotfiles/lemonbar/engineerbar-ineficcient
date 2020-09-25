@@ -1,0 +1,29 @@
+#!/usr/bin/dash
+
+Barra(){
+#####################################################################
+	ActiveDesktop=$(bspc query -D -d --names)
+###################################################################
+	CPU=$(top -b -n1 | awk 'NR==3{print $2 + $4}')
+	RAM=$(ps axch -o %mem | awk '{sum+=$0} END {print sum}')
+	AMDGPU=$(radeontop -d - -l 1 | awk 'NR==2 {print "GPU="$5" · ""VRAM="$27}' | sed 's/,//')
+####################################################################	
+	actual=$(bspc query -D -d --names)
+	coloreado=$(awk 'BEGIN{"bspc query -D -d --names"|getline usando;print "%{B#FF007F}%{+u}"usando"%{B#22000000}%{-u}"}')
+	reemplazar=$(bspc query -D -d .occupied --names | sed "s/$actual/$coloreado/")	
+	OccupiedDesktops=$(echo "$reemplazar"| paste -d' ' -s)
+####################################################################
+	ActiveWindow=$(xdotool getwindowfocus getwindowname)
+###################################################################
+	Language=$(locale | awk -F= 'NR==1{print $2}')
+#################################################################
+	Time=$(date "+%A %d,  %B %Y. · %T")
+######################################################################################################
+######################################################################################################
+	echo -n "%{l}$OccupiedDesktops · CPU=$CPU% · RAM=$RAM% · $AMDGPU  %{c} "%{B#FF007F}%{+u}"$ActiveDesktop"%{B#22000000}%{-u}" · $ActiveWindow %{r}$Language · $Time"
+	sleep 0.1s
+}
+
+while true; do
+	echo "$(Barra)"
+done
