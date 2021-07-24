@@ -89,11 +89,11 @@ super + {_,shift + }{1-9,0}
 # Preselección.										|
 #---------------------------------------------------------------------------------------+
 
-# Preseleccionar la dirección.
+# Preseleccionar dirección.
 super + ctrl + {h,j,k,l}
 	bspc node -p {west,south,north,east}
 
-# Preseleccionar el ratio.
+# Preseleccionar ratio.
 super + ctrl + {1-9}
 	bspc node -o 0.{1-9}
 
@@ -123,10 +123,6 @@ super + {Left,Down,Up,Right}
 #---------------------------------------------------------------------------------------+
 # CUSTOM										|
 #---------------------------------------------------------------------------------------+
-
-# scripts de redimension con las flechas.
-alt + ctrl + {Left, Down, Up, Right}
-	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
 # sacar capturas
 Print
