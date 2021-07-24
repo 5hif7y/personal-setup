@@ -19,7 +19,7 @@ super + Escape
 # Combinaciones de teclas del WM bspwm							|
 #---------------------------------------------------------------------------------------+
 
-# salir/reiniciar bspwm
+# Salir/reiniciar bspwm
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
@@ -55,33 +55,33 @@ super + ctrl + {m,x,y,z}
 # Enfocar/intercambiar									|
 #---------------------------------------------------------------------------------------+
 
-# focus the node in the given direction
+# Enfocar el nodo en la dirección dada
 super + {_,shift + }{h,j,k,l}
 	bspc node -{f,s} {west,south,north,east}
 
-# focus the node for the given path jump
+# Enfocar el nodo para el salto de ruta dado
 super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
 
-# focus the next/previous node in the current desktop
+# Enfocar el nodo siguiente/anterior en el escritorio actual
 super + {_,shift + }c
 	bspc node -f {next,prev}.local
 
-# focus the next/previous desktop in the current monitor
+# Enfocar el escritorio siguiente/anterior en el monitor actual
 super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
-# focus the last node/desktop
+# Enfocar el ultimo nodo/escritorio
 super + {grave,Tab}
 	bspc {node,desktop} -f last
 
-# focus the older or newer node in the focus history
+# Enfocar el nodo mas antiguo/nuevo en el historial de enfoques
 super + {o,i}
 	bspc wm -h off; \
 	bspc node {older,newer} -f; \
 	bspc wm -h on
 
-# focus or send to the given desktop
+# Enfocar o enviar al escritorio dado
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
@@ -124,11 +124,11 @@ super + {Left,Down,Up,Right}
 # Ejecucion de scripts personalizados							|
 #---------------------------------------------------------------------------------------+
 
-# sacar capturas
+# Sacar capturas con la utilidad scrot
 Print
 	~/.config/bspwm/scripts/captura
 
-# sacar captura-recorte
+# Sacar captura-recorte con la utilidad scrot
 
 ctrl + Print
 	dash ~/.config/bspwm/scripts/recorte-captura
