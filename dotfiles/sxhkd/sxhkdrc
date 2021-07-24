@@ -43,11 +43,11 @@ super + g
 # Estados/banderas									|
 #---------------------------------------------------------------------------------------+
 
-# Fijar el estado de la ventana.
+# Establecer el estado de la ventana.
 super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
 
-# Fijar la bandera del nodo.
+# Establecer la bandera del nodo.
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
