@@ -1,4 +1,4 @@
 #!/usr/bin/env dash
 
-
+# 年 = año, 月 = mes, 日 = dia. %Y = año, %m = mes, %d = dia, %T = hora
 scrot ~/Imágenes/capturas/captura-%Y年%m月%d日_%T.png
